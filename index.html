@@ -17,25 +17,40 @@
             min-height: 100vh;
             text-align: center;
         }
+
+        /* --- SELECTOR DE IDIOMA --- */
+        .lang-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .lang-selector select {
+            background: #222;
+            color: #00e676;
+            border: 1px solid #00e676;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+
         .container {
             padding: 20px;
             max-width: 600px;
         }
 
-        /* --- NUEVO ESTILO PARA EL LOGO --- */
         .app-logo {
-            max-width: 120px; /* Ancho máximo del logo */
-            height: auto; /* Mantiene la proporción */
-            border-radius: 20px; /* Bordes redondeados (opcional) */
-            margin-bottom: 20px; /* Espacio con el título */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Sombra suave (opcional) */
+            max-width: 120px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        /* -------------------------------- */
 
         h1 {
-            font-size: 2.8rem; /* Un poco más pequeño para equilibrar con el logo */
+            font-size: 2.8rem;
             margin-bottom: 0.5rem;
-            color: #00e676; /* Verde metrónomo */
+            color: #00e676;
             margin-top: 0;
         }
         .tagline {
@@ -69,40 +84,96 @@
         .links a {
             color: #888;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 10px;
             font-size: 0.9rem;
         }
         .links a:hover {
             color: #00e676;
         }
-        .links span { color: #444; } /* Separador */
+        .links span { color: #444; }
         
         .legal-notice { color: #666; font-size: 0.8rem; margin-top: 20px; }
     </style>
 </head>
 <body>
 
+    <div class="lang-selector">
+        <select id="languagePicker" onchange="changeLanguage()">
+            <option value="es">Español 🇪🇸</option>
+            <option value="en">English 🇺🇸</option>
+        </select>
+    </div>
+
     <div class="container">
         <img src="app_icon.png" alt="El Metrónomo Logo" class="app-logo">
-        <h1>The Metronome</h1>
-        <div class="tagline">
+        <h1 id="mainTitle">The Metronome</h1>
+        
+        <div class="tagline" id="tagline">
             Pensado para los músicos<br>
             <strong>Hecho por músicos</strong>
         </div>
 
-        <a href="https://play.google.com/store/apps/details?hl=en_US&id=com.jjim.elmtr" class="playstore-btn" target="_blank">
+        <a href="https://play.google.com/store/apps/details?hl=en_US&id=com.jjim.elmtr" class="playstore-btn" id="btnText">
             Descargar en Play Store
         </a>
 
         <footer>
             <div class="links">
-                <a href="privacy-es.html">Política de Privacidad</a>
+                <a href="privacy-es.html" id="linkPrivacy">Política de Privacidad</a>
                 <span>|</span>
-                <a href="terms-es.html">Términos de Uso</a>
+                <a href="terms-es.html" id="linkTerms">Términos de Uso</a>
             </div>
-            <p class="legal-notice">&copy; 2026 JJIMdev - Todos los derechos reservados.</p>
+            <p class="legal-notice">&copy; 2026 JJIMdev - <span id="rightsText">Todos los derechos reservados.</span></p>
         </footer>
     </div>
 
+    <script>
+        // Textos en ambos idiomas
+        const translations = {
+            es: {
+                tagline: "Pensado para los músicos<br><strong>Hecho por músicos</strong>",
+                btn: "Descargar en Play Store",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Uso",
+                rights: "Todos los derechos reservados.",
+                privacyLink: "privacy-es.html",
+                termsLink: "terms-es.html"
+            },
+            en: {
+                tagline: "Designed for musicians<br><strong>Made by musicians</strong>",
+                btn: "Download on Play Store",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service",
+                rights: "All rights reserved.",
+                privacyLink: "privacy-en.html",
+                termsLink: "terms-en.html"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById('languagePicker').value;
+            const t = translations[lang];
+
+            // Actualizar textos
+            document.getElementById('tagline').innerHTML = t.tagline;
+            document.getElementById('btnText').innerText = t.btn;
+            document.getElementById('linkPrivacy').innerText = t.privacy;
+            document.getElementById('linkTerms').innerText = t.terms;
+            document.getElementById('rightsText').innerText = t.rights;
+
+            // Actualizar enlaces a los archivos correspondientes
+            document.getElementById('linkPrivacy').href = t.privacyLink;
+            document.getElementById('linkTerms').href = t.termsLink;
+        }
+
+        // Detectar idioma del navegador al cargar
+        window.onload = () => {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('en')) {
+                document.getElementById('languagePicker').value = 'en';
+                changeLanguage();
+            }
+        };
+    </script>
 </body>
 </html>
