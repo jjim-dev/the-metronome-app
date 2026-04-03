@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://jjim-dev.github.io/the-metronome-app/sitemap.xml
