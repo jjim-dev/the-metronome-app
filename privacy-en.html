@@ -147,9 +147,11 @@
             btn: "Descargar en Play Store",
             privacy: "Política de Privacidad",
             terms: "Términos de Uso",
+            history: "Historial de Versiones", // Añadido
             rights: "Todos los derechos reservados.",
-            privacyLink: "privacy-es.html", // Añadida extensión .html
-            termsLink: "terms-es.html"      // Añadida extensión .html
+            privacyLink: "privacy-es.html",
+            termsLink: "terms-es.html",
+            historyLink: "changelog-es.html"       // Añadido (Asumiendo que lo creas en español por defecto)
         },
         en: {
             title: "The Metronome",
@@ -157,9 +159,11 @@
             btn: "Download on Play Store",
             privacy: "Privacy Policy",
             terms: "Terms of Service",
+            history: "Version History",        // Añadido
             rights: "All rights reserved.",
-            privacyLink: "privacy-en.html", // Añadida extensión .html
-            termsLink: "terms-en.html"      // Añadida extensión .html
+            privacyLink: "privacy-en.html",
+            termsLink: "terms-en.html",
+            historyLink: "changelog-en.html"    // Ojo aquí (Ver nota de Publii abajo)
         }
     };
 
@@ -174,7 +178,8 @@
             'btnText': t.btn,
             'rightsText': t.rights,
             'linkPrivacy': t.privacy,
-            'linkTerms': t.terms
+            'linkTerms': t.terms,
+            'linkHistory': t.history // Añadido el ID del nuevo enlace
         };
 
         for (let id in textElements) {
@@ -185,9 +190,11 @@
         // 2. Actualizar enlaces (href)
         const privacyEl = document.getElementById('linkPrivacy');
         const termsEl = document.getElementById('linkTerms');
+        const historyEl = document.getElementById('linkHistory'); // Añadido
         
         if (privacyEl) privacyEl.href = t.privacyLink;
         if (termsEl) termsEl.href = t.termsLink;
+        if (historyEl) historyEl.href = t.historyLink; // Añadido
     }
 
     // Escuchar cambios en el selector
@@ -206,7 +213,6 @@
                 picker.value = 'en';
                 applyTranslation('en');
             } else {
-                // Forzar español si no es inglés para asegurar que los links son correctos
                 applyTranslation('es');
             }
         }
